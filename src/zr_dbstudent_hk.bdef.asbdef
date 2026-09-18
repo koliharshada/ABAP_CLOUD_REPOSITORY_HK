@@ -1,0 +1,51 @@
+managed implementation in class ZBP_R_DBSTUDENT_HK unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZR_DBSTUDENT_HK alias ZrDbstudentHk
+persistent table ZDB_STUDENT_HK
+extensible
+draft table ZDBSTUDENT_HK_D
+etag master Lastchanged
+lock master total etag Lastchanged
+authorization master( global )
+{
+  field ( mandatory : create )
+   Rollnointernal,
+   StudentID;
+
+  field ( readonly )
+   Lastchanged,
+   Createdby,
+   Changedby;
+
+  field ( readonly : update )
+   Rollnointernal,
+   StudentID;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for ZDB_STUDENT_HK corresponding extensible
+  {
+    Rollnointernal = ROLLNOINTERNAL;
+    StudentID = STUDENT_ID;
+    Dept = DEPT;
+    Firstname = FIRSTNAME;
+    Lastname = LASTNAME;
+    Age = AGE;
+    Email = EMAIL;
+    Lastchanged = LASTCHANGED;
+    Createdby = CREATEDBY;
+    Changedby = CHANGEDBY;
+  }
+
+}
